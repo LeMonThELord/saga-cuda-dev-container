@@ -1,0 +1,100 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.238.0/containers/ubuntu
+{
+    "name": "SAGA-CUDA",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "CUDA_VERSION": "12.6.0",
+            "CUDNN": "",
+            "FLAVOR": "-devel",
+            "VARIANT": "-ubuntu24.04"
+        }
+    },
+    "runArgs": [
+        // you have to pass what gpu you wan to CUDA interact with
+        "--gpus=all",
+        // add capacity and security-opt to enable debugging inside container
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined"
+    ],
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:/usr/local/cuda/bin",
+        "LD_LIBRARY_PATH": "$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64",
+        "XLA_FLAGS": "--xla_gpu_cuda_data_dir=/usr/local/cuda"
+    },
+    // Set *default* container specific settings.json values on container create.
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": {
+        "cuda-check": "nvidia-smi",
+        "dependencies": "bash /workspaces/cuda-training/.devcontainer/install-dependencies.sh"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                // Core
+                "llvm-vs-code-extensions.vscode-clangd",
+                "ms-vscode.cmake-tools",
+                "josetr.cmake-language-support-vscode",
+                "ms-vscode.makefile-tools",
+                "NVIDIA.nsight-vscode-edition",
+                "kriegalex.vscode-cudacpp",
+                "cschlosser.doxdocgen",
+                "RSIP-Vision.nvidia-smi-plus",
+                "run-ai.vscode-genv",
+                // Helpers
+                "zhuangtongfa.material-theme",
+                "aaron-bond.better-comments",
+                "kevinkyang.auto-comment-blocks",
+                "spywhere.guides",
+                "nhoizey.gremlins",
+                "Gruntfuggly.todo-tree",
+                "mkxml.vscode-filesize",
+                "xyz.local-history",
+                "emilast.LogFileHighlighter",
+                "tomoki1207.pdf",
+                "AkvelonPrimary.autocomment",
+                // Git
+                "mhutchie.git-graph",
+                "pomber.git-file-history",
+                "donjayamanne.githistory",
+                "GitHub.vscode-pull-request-github",
+                "codezombiech.gitignore",
+                "vivaxy.vscode-conventional-commits",
+                // Optional
+                "stackbreak.comment-divider",
+                "GitHub.copilot",
+                "christian-kohler.path-intellisense",
+                "IBM.output-colorizer",
+                "shd101wyy.markdown-preview-enhanced",
+                "wmaurer.change-case",
+                "jeff-hykin.better-dockerfile-syntax",
+                "bierner.emojisense",
+                "stkb.rewrap",
+                "eamodio.gitlens",
+                "nhoizey.gremlins",
+                "vsls-contrib.gistfs",
+                "jasonlhy.hungry-delete",
+                // Paid
+                "eamodio.gitlens"
+            ]
+        }
+    },
+    // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+    "features": {
+        "common": {
+            "username": "automatic",
+            "uid": "automatic",
+            "gid": "automatic",
+            "installZsh": true,
+            "installOhMyZsh": true,
+            "upgradePackages": true,
+            "nonFreePackages": false
+        },
+        "git": "latest"
+    },
+    "remoteUser": "root"
+}
