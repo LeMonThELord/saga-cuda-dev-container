@@ -85,16 +85,16 @@
     },
     // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
     "features": {
-        "common": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
             "username": "vscode",
             "uid": "automatic",
             "gid": "automatic",
-            "installZsh": true,
-            "installOhMyZsh": true,
+            // "installZsh": true,
+            // "installOhMyZsh": true,
             "upgradePackages": true,
             "nonFreePackages": false
         },
-        "git": "latest"
+        "ghcr.io/devcontainers/features/git:1": {}
     },
     "remoteUser": "vscode"
 }
