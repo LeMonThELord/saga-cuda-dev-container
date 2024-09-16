@@ -28,10 +28,11 @@
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
     // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": {
-        "cuda-check": "nvidia-smi",
-        "dependencies": "bash /workspaces/cuda-training/.devcontainer/install-dependencies.sh"
-    },
+    "postCreateCommand": "bash /workspaces/cuda-training/.devcontainer/install-dependencies.sh && nvidia-smi",
+    // {
+    //     "cuda-check": "nvidia-smi",
+    //     "dependencies": "bash /workspaces/cuda-training/.devcontainer/install-dependencies.sh"
+    // },
     "customizations": {
         "vscode": {
             "extensions": [
@@ -65,6 +66,7 @@
                 "codezombiech.gitignore",
                 "vivaxy.vscode-conventional-commits",
                 // Optional
+                "kevinkyang.auto-comment-blocks",
                 "stackbreak.comment-divider",
                 "GitHub.copilot",
                 "christian-kohler.path-intellisense",
@@ -93,8 +95,7 @@
             // "installOhMyZsh": true,
             "upgradePackages": true,
             "nonFreePackages": false
-        },
-        "ghcr.io/devcontainers/features/git:1": {}
+        }
     },
     "remoteUser": "vscode"
 }
