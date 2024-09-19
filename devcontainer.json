@@ -33,10 +33,6 @@
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": "bash /workspaces/cuda-training/.devcontainer/install-dependencies.sh && nvidia-smi",
     "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
-    // {
-    //     "cuda-check": "nvidia-smi",
-    //     "dependencies": "bash /workspaces/cuda-training/.devcontainer/install-dependencies.sh"
-    // },
     "customizations": {
         "vscode": {
             "extensions": [
@@ -95,14 +91,14 @@
             "username": "vscode",
             "uid": "automatic",
             "gid": "automatic",
-            // "installZsh": true,
-            // "installOhMyZsh": true,
+            "installZsh": false,
+            "installOhMyZsh": false,
+            "installOhMyZshConfig": false,
             "upgradePackages": true,
             "nonFreePackages": false
         },
         "ghcr.io/devcontainers/features/git:1": {}
     },
-    "containerUser": "vscode",
     "remoteUser": "vscode",
     "updateRemoteUserUID": true
 }
