@@ -5,7 +5,7 @@
     "build": {
         "dockerfile": "Dockerfile",
         "args": {
-            "CUDA_VERSION": "12.6.0",
+            "CUDA_VERSION": "12.6.1",
             "CUDNN": "",
             "FLAVOR": "-devel",
             "VARIANT": "-ubuntu24.04",
