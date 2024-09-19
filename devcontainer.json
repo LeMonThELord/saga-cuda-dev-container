@@ -8,7 +8,8 @@
             "CUDA_VERSION": "12.6.0",
             "CUDNN": "",
             "FLAVOR": "-devel",
-            "VARIANT": "-ubuntu24.04"
+            "VARIANT": "-ubuntu24.04",
+            "USERNAME": "vscode"
         }
     },
     "runArgs": [
@@ -17,7 +18,9 @@
         // add capacity and security-opt to enable debugging inside container
         "--cap-add=SYS_PTRACE",
         "--security-opt",
-        "seccomp=unconfined"
+        "seccomp=unconfined",
+        // privileged mode to enable nvidia-smi
+        "--privileged"
     ],
     "remoteEnv": {
         "PATH": "${containerEnv:PATH}:/usr/local/cuda/bin",
@@ -29,6 +32,7 @@
     // "forwardPorts": [],
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": "bash /workspaces/cuda-training/.devcontainer/install-dependencies.sh && nvidia-smi",
+    "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
     // {
     //     "cuda-check": "nvidia-smi",
     //     "dependencies": "bash /workspaces/cuda-training/.devcontainer/install-dependencies.sh"
@@ -95,7 +99,10 @@
             // "installOhMyZsh": true,
             "upgradePackages": true,
             "nonFreePackages": false
-        }
+        },
+        "ghcr.io/devcontainers/features/git:1": {}
     },
-    "remoteUser": "vscode"
+    "containerUser": "vscode",
+    "remoteUser": "vscode",
+    "updateRemoteUserUID": true
 }
