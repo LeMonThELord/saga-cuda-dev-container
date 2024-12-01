@@ -1,6 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.238.0/containers/ubuntu
 {
+<<<<<<< HEAD
   "name": "SAGA-CUDA",
   "build": {
     "dockerfile": "Dockerfile",
@@ -9,7 +10,7 @@
       "CUDNN": "",
       "FLAVOR": "-devel",
       "VARIANT": "-ubuntu24.04",
-      "USERNAME": "vscode"
+      "USERNAME": "saga"
     }
   },
   "runArgs": [
@@ -32,6 +33,7 @@
   // "forwardPorts": [],
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "bash /workspaces/cuda-training/.devcontainer/install-dependencies.sh && nvidia-smi",
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
   // {
   //     "cuda-check": "nvidia-smi",
   //     "dependencies": "bash /workspaces/cuda-training/.devcontainer/install-dependencies.sh"
@@ -94,8 +96,9 @@
       "username": "saga",
       "uid": "automatic",
       "gid": "automatic",
-      // "installZsh": true,
-      // "installOhMyZsh": true,
+      "installZsh": false,
+      "installOhMyZsh": false,
+      "installOhMyZshConfig": false,
       "upgradePackages": true,
       "nonFreePackages": false
     },
