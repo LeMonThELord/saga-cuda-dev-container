@@ -34,11 +34,3 @@ tldr --update
 
 # Install CMake
 sudo apt install -y wget cmake
-
-# Install Omakub but without the GUI
-rm -rf ~/.local/share/omakub
-mkdir -p ~/.local/share/omakub
-git clone https://github.com/SagaciousFish/omakub-headless-fix.git ~/.local/share/omakub
-source ~/.local/share/omakub/install.sh
-
-# wget -qO- https://omakub.org/install | bash
