@@ -1,5 +1,12 @@
 # System dependencies installation script
 
+# Add saga user to sudoers
+echo "saga ALL=(ALL:ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/saga
+
+# Update CUDA gpg key
+sudo rm /etc/apt/sources.list.d/cuda.list
+sudo wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb && sudo dpkg -i cuda-keyring_1.1-1_all.deb && sudo rm cuda-keyring_1.1-1_all.deb
+
 # Update and upgrade system
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 
@@ -7,30 +14,22 @@ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 sudo apt install -y build-essential git curl wget unzip
 
 # Install Python
-sudo apt install -y python3-full pipx && pip install --upgrade pip && pipx ensurepath
+ln -s /usr/share/zoneinfo/Asia/Hong_Kong /etc/localtime
+DEBIAN_FRONTEND="noninteractive" TZ="Asia/Hong_Kong" sudo -E apt install -y python3-full pipx tldr && pipx ensurepath
 
 # Install uv
 pipx install uv
 
-# Install tldr help pages
-pipx install tldr && tldr --update
+# Update tldr help pages
+tldr --update
 
 # Install CMake
-sudo apt install -y ca-certificates gpg wget
-test -f /usr/share/doc/kitware-archive-keyring/copyright || wget -O - https: //apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
-echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ noble main' | sudo tee /etc/apt/sources.list.d/kitware.list >/dev/null
-sudo apt update
-test -f /usr/share/doc/kitware-archive-keyring/copyright || sudo rm /usr/share/keyrings/kitware-archive-keyring.gpg
-sudo apt install kitware-archive-keyring -y
-sudo apt install cmake -y
-
-# Install Miniconda
-mkdir -p ~/miniconda3
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
-bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
-rm ~/miniconda3/miniconda.sh
-~/miniconda3/bin/conda init bash
-~/miniconda3/bin/conda init zsh
+sudo apt install -y wget cmake
 
 # Install Omakub but without the GUI
-wget -qO- https://omakub.org/install | bash
+rm -rf ~/.local/share/omakub
+mkdir -p ~/.local/share/omakub
+git clone https://github.com/SagaciousFish/omakub-headless-fix.git ~/.local/share/omakub
+source ~/.local/share/omakub/install.sh
+
+# wget -qO- https://omakub.org/install | bash
